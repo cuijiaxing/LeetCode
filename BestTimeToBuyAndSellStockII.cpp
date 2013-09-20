@@ -1,3 +1,7 @@
+/*
+ *Author: Alvin
+ *Title:Best Time to Buy and Sell Stock II
+ */
 #include<iostream>
 #include<vector>
 using namespace std;
