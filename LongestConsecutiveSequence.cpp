@@ -1,3 +1,7 @@
+/*
+ *Author:Alvin
+ *Title LongestConsecutiveSequence
+ */
 #include<iostream>
 #include<string.h>
 #include<algorithm>
