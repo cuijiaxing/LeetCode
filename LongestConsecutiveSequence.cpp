@@ -6,30 +6,57 @@
 #include<string.h>
 #include<algorithm>
 #include<vector>
+#include<unordered_map>
+#include<string.h>
 using namespace std;
 
 class Solution{
 	public:
+		int visited[100000];
 		int longestConsecutive(vector<int> &num){
-			if(num.size() == 1){
-				return 1;
+			unordered_map<int, int> indexMap;
+			memset(visited, 0, sizeof(visited));
+			for(int i = 0; i < num.size(); ++i){
+				indexMap[num[i]] = i;
 			}
-			int max_length = 0;
-			int current_length = 0;
-			sort(num.begin(), num.end());
-			for(int i = 1; i < num.size(); ++i){
-				if(num[i] == num[i - 1] + 1){
-					++current_length;
-					if(current_length > max_length){
-						max_length = current_length;
+			int max = 0;
+			for(int i = 0; i < num.size(); ++i){
+				if(!visited[i]){
+					int desc = num[i] -1;
+					int asc = num[i] + 1;
+					int count = 0;
+					unordered_map<int, int>::iterator it;
+					while(1){
+						it = indexMap.find(desc);
+
+						if(it != indexMap.end()){
+							visited[it->second] = 1;
+						}else{
+							break;
+						}
+						--desc;
+						++count;
 					}
-				}else{
-					if(num[i] != num[i - 1])
-						current_length = 0;
+					while(1){
+						it = indexMap.find(asc);
+						if(it != indexMap.end()){
+							visited[it->second] = 1;
+						}else{
+							break;
+						}
+						++asc;
+						++count;
+
+					}
+					if(count > max){
+						max = count;
+					}
 				}
 			}
-			return max_length + 1;
-			return 0;
+
+
+			return max + 1;
+
 		}
 };
 
